@@ -17,14 +17,14 @@ class TestLoop:
     isReadyToFly = False
 
     def __init__(self, H, V, yaw):
-        print yaw
+        print(yaw)
         q = tf.transformations.quaternion_from_euler(0, 0, yaw)
         self.locations = numpy.matrix([[H, H, V, q[0], q[1], q[2], q[3]],
                                        [-H, H, V, q[0], q[1], q[2], q[3]],
                                        [-H, -H, V, q[0], q[1], q[2], q[3]],
                                        [H, -H, V, q[0], q[1], q[2], q[3]],])
-        print self.locations
-        print '/mavros/setpoint_position/local'
+        print(self.locations)
+        print('/mavros/setpoint_position/local')
         rospy.init_node('offboard_test', anonymous=True)
         pose_pub = rospy.Publisher('/mavros/setpoint_position/local', PoseStamped, queue_size=10)
         rospy.Subscriber('/mavros/local_position/pose', PoseStamped, callback=self.mocap_cb)
@@ -36,7 +36,7 @@ class TestLoop:
         shape = self.locations.shape
 
         while not rospy.is_shutdown():
-            print self.sim_ctr, shape[0], self.waypointIndex
+            print(self.sim_ctr, shape[0], self.waypointIndex)
             if self.waypointIndex is shape[0]:
                 self.waypointIndex = 0
                 self.sim_ctr += 1
@@ -45,6 +45,8 @@ class TestLoop:
                 des_x = self.locations[self.waypointIndex, 0]
                 des_y = self.locations[self.waypointIndex, 1]
                 des_z = self.locations[self.waypointIndex, 2]
+
+
                 self.des_pose.pose.position.x = des_x
                 self.des_pose.pose.position.y = des_y
                 self.des_pose.pose.position.z = des_z
@@ -60,7 +62,7 @@ class TestLoop:
 
                 azimuth = math.atan2(0-curr_y, 20-curr_x)
                 quaternion = tf.transformations.quaternion_from_euler(0, 0, azimuth)
-                print quaternion
+                print(quaternion)
                 self.des_pose.pose.orientation.x = quaternion[0]
                 self.des_pose.pose.orientation.y = quaternion[1]
                 self.des_pose.pose.orientation.z = quaternion[2]
@@ -89,10 +91,10 @@ class TestLoop:
         self.curr_pose = msg
 
     def state_cb(self,msg):
-        print msg.mode
+        print(msg.mode)
         if(msg.mode=='OFFBOARD'):
             self.isReadyToFly = True
-            print "readyToFly"
+            print("readyToFly")
 
 if __name__ == "__main__":
     TestLoop(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]))
