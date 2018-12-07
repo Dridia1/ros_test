@@ -18,10 +18,13 @@ class TestLoop:
     des_pose = PoseStamped()
     isReadyToFly = False
 
+    # H, V, yaw is set at: "hej_test.launch" file
     def __init__(self, H, V, yaw):
-        # 0: print('yaw:' + str(yaw))
-        # 1: print('h:' + str(H))
-        # 1: print('v: ' + str(V))
+        # print('yaw:' + str(yaw)) prints 0
+        # print('h:' + str(H))     prints 1
+        # print('v: ' + str(V))    prints 1
+
+        # args = (Roll, Pitch, Yaw)
         q = tf.transformations.quaternion_from_euler(0, 0, yaw)
         self.locations = numpy.matrix([[H, H, V, q[0], q[1], q[2], q[3]],
                                        [-H, H, V, q[0], q[1], q[2], q[3]],
