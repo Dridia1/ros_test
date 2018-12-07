@@ -6,8 +6,8 @@
 		<arg name="fcu_url" value="udp://:14550@127.0.0.1:14557"/>
 	</include>
 	<include file="$(find ros_test)/src/launch/hej_test.launch">
-		<arg name="H" value="20"/>
-		<arg name="V" value="30"/>
+		<arg name="H" value="2"/>
+		<arg name="V" value="2"/>
 		<arg name="yaw" value="0"/>
 	</include>
 </launch>

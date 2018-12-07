@@ -1,7 +1,4 @@
 <launch>
-	<arg name="H" default="1"/>
-	<arg name="V" default="1"/>
-	<arg name="yaw" default="0"/>
     <node pkg="ros_test" type="arm.py" name="arm_node" output="screen" />
     <node pkg="ros_test" type="fly.py" name="fly_node" args="$(arg H) $(arg V) $(arg yaw)" output="screen"/>
 </launch>

@@ -40,6 +40,7 @@ try:
     print('Waiting for message...')
     # Relative Altitude (Will give you the altitude of the Drone)
     data = rospy.wait_for_message('mavros/global_position/rel_alt', Float64, timeout=5)
+
 except:
     pass
 
@@ -53,7 +54,7 @@ rate = rospy.Rate(10)
 while not rospy.is_shutdown():
     success = None
     try:
-        success = mode_proxy(1,'OFFBOARD')
+        success = mode_proxy(1, 'OFFBOARD')
     except rospy.ServiceException as e:
         print ("mavros/set_mode service call failed: %s" %e)
 
